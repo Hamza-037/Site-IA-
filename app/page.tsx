@@ -20,43 +20,46 @@ const projects = [
     name: "Tarvio",
     category: "SaaS IA",
     description:
-      "Une plateforme orientee performance pour accelerer la prospection, la qualification et la conversion avec l'IA.",
+      "Plateforme de devis et facturation assistee par IA pour artisans. Generation automatique par LLM, transcription vocale Whisper, paiement Stripe integre. Deployed en production sur Vercel.",
   },
   {
     name: "ShadowFit",
-    category: "HealthTech",
+    category: "IA & Produit",
     description:
-      "Une experience fitness intelligente qui combine personnalisation, automatisation et suivi utilisateur.",
+      "Application mobile generant des objectifs hebdomadaires dynamiques via GPT-4o-mini. Coaching personnalise, suivi de progression et experience utilisateur pensee pour l'engagement.",
   },
   {
     name: "SUPCONTENT",
-    category: "EdTech",
+    category: "Chef de Projet",
     description:
-      "Un moteur de production de contenu pense pour les etudiants, les formateurs et les ecosystemes pedagogiques modernes.",
+      "Reseau social gaming full-stack pilote en lead chef de projet sur une equipe de 4. Coordination, architecture, livraisons. Node.js, React, React Native, PostgreSQL.",
   },
 ];
 
 const skills = {
   IA: [
-    "LLM Ops",
     "Prompt Engineering",
-    "Automatisation IA",
+    "LLM Ops",
     "Agents IA",
-    "Product Thinking",
+    "RAG",
+    "Acculturation IA",
+    "Bibliotheque de prompts",
   ],
-  Data: [
-    "Python",
-    "Pandas",
-    "Power BI",
+  "Gestion de Projet": [
+    "Agile / Scrum",
+    "Asana",
+    "Pilotage KPIs",
+    "Conduite du changement",
+    "Adoption outils",
+    "Microsoft 365",
+  ],
+  "Data & Dev": [
+    "Power BI / DAX",
+    "Apache Spark",
     "SQL",
-    "Visualisation",
-  ],
-  Dev: [
+    "Python",
     "Next.js",
-    "TypeScript",
-    "Tailwind CSS",
-    "APIs",
-    "Vercel",
+    "Supabase",
   ],
 };
 
@@ -113,6 +116,8 @@ export default function Home() {
     >
       <div className="absolute inset-x-0 top-0 -z-10 h-[38rem] bg-[radial-gradient(circle_at_top,rgba(74,231,255,0.18),transparent_35%)]" />
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-6 md:px-10 lg:px-12">
+
+        {/* NAV */}
         <motion.header
           initial={{ opacity: 0, y: -18 }}
           animate={{ opacity: 1, y: 0 }}
@@ -123,7 +128,7 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <div className="h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_20px_rgba(74,231,255,0.9)]" />
               <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-300">
-                portfolio.h-hamdache.fr
+                h-hamdache.fr
               </p>
             </div>
             <nav className="flex flex-wrap gap-3 text-sm text-slate-300">
@@ -140,6 +145,7 @@ export default function Home() {
           </div>
         </motion.header>
 
+        {/* HERO */}
         <section className="relative flex min-h-[84vh] items-center py-14 md:py-20">
           <div className="grid gap-14 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
             <motion.div
@@ -149,7 +155,7 @@ export default function Home() {
               className="max-w-3xl"
             >
               <span className="inline-flex rounded-full border border-blue-400/20 bg-blue-500/10 px-4 py-1 text-sm font-medium text-blue-100">
-                Alternant Chef de Projet IA • SUPINFO Tours • Keolis
+                Candidat Alternance Chef de Projet IA — DataLab Groupe • Credit Agricole SA
               </span>
               <h1
                 className={`${headingFont.className} mt-8 text-5xl font-bold leading-none tracking-tight text-white sm:text-6xl md:text-7xl`}
@@ -157,11 +163,12 @@ export default function Home() {
                 Hamza Hamdache
               </h1>
               <p className="mt-5 text-xl font-semibold text-cyan-300 md:text-2xl">
-                Alternant Chef de Projet IA
+                Alternant Chef de Projet IA — Data & Transformation Digitale
               </p>
               <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
-                Je concois des produits IA qui transforment des idees ambitieuses
-                en experiences utiles, mesurables et pretes a etre deployees.
+                Passionne d'IA, je developpe des SaaS en production et pilote
+                des projets data en methode Agile. Je candidate pour contribuer
+                a l'adoption de l'IA au sein du Groupe Credit Agricole.
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-4">
                 <a
@@ -170,6 +177,14 @@ export default function Home() {
                 >
                   Parler a mon IA
                   <span className="transition group-hover:translate-x-1">→</span>
+                </a>
+                <a
+                  href="/cv.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-7 py-4 text-sm font-semibold text-cyan-300 transition duration-300 hover:bg-cyan-400/20 hover:shadow-[0_0_15px_rgba(74,231,255,0.3)]"
+                >
+                  Telecharger mon CV
                 </a>
                 <a
                   href="#projets"
@@ -189,14 +204,14 @@ export default function Home() {
               <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-r from-blue-500/20 to-cyan-300/20 blur-2xl" />
               <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-glow backdrop-blur">
                 <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-400">
-                  <span>Focus</span>
-                  <span>2026</span>
+                  <span>Objectifs 2026</span>
+                  <span>DataLab</span>
                 </div>
                 <div className="mt-8 space-y-6">
                   {[
-                    "Pilotage de projets IA en environnement reel",
-                    "Construction de SaaS utiles, lisibles et actionnables",
-                    "Alliance entre vision produit, data et execution",
+                    "Diffuser les bonnes pratiques IA au sein des equipes Groupe",
+                    "Construire et animer une bibliotheque de prompts actionnable",
+                    "Piloter l'adoption des outils IA via des KPIs concrets",
                   ].map((item) => (
                     <div
                       key={item}
@@ -213,12 +228,14 @@ export default function Home() {
         </section>
 
         <div className="space-y-28 md:space-y-36">
+
+          {/* A PROPOS */}
           <section id="apropos" className="scroll-mt-28">
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
               <SectionTitle
                 eyebrow="A propos"
-                title="Un profil hybride entre strategie, produit et execution."
-                description="Etudiant a SUPINFO Tours, alternant chez Keolis et builder de SaaS IA, je travaille a l'intersection du terrain, de la technologie et de la creation de valeur."
+                title="Technique, pedagogique et oriente adoption."
+                description="Etudiant en 3eme annee a SUPINFO Tours, alternant Data & IA chez Keolis, je combine maitrise technique de l'IA et capacite a la rendre accessible a des equipes non techniques."
               />
               <motion.div
                 initial="hidden"
@@ -229,9 +246,9 @@ export default function Home() {
                 className="grid gap-4 md:grid-cols-3"
               >
                 {[
-                  { label: "Formation", value: "SUPINFO Tours" },
-                  { label: "Alternance", value: "Keolis" },
-                  { label: "Approche", value: "Builder de SaaS IA" },
+                  { label: "Formation", value: "SUPINFO Tours — Master IA & Data 2026-2028" },
+                  { label: "Alternance", value: "Keolis Tours — Data & Chef de Projet" },
+                  { label: "Disponible", value: "Septembre 2026 — 24 mois" },
                 ].map((item) => (
                   <div
                     key={item.label}
@@ -240,7 +257,7 @@ export default function Home() {
                     <p className="text-sm uppercase tracking-[0.22em] text-slate-400">
                       {item.label}
                     </p>
-                    <p className="mt-4 text-xl font-semibold text-white">
+                    <p className="mt-4 text-lg font-semibold text-white">
                       {item.value}
                     </p>
                   </div>
@@ -249,11 +266,12 @@ export default function Home() {
             </div>
           </section>
 
+          {/* PROJETS */}
           <section id="projets" className="scroll-mt-28">
             <SectionTitle
               eyebrow="Projets"
-              title="Des produits IA penses pour des usages concrets."
-              description="Chaque projet explore une combinaison differente entre experience utilisateur, automatisation et impact metier."
+              title="Des produits IA deployes, pas des prototypes."
+              description="Chaque projet integre des LLMs en production, avec une attention constante a l'experience utilisateur, a la scalabilite et a la valeur metier."
             />
             <div className="mt-10 grid gap-6 lg:grid-cols-3">
               {projects.map((project, index) => (
@@ -279,18 +297,19 @@ export default function Home() {
                   </p>
                   <div className="mt-8 h-px w-full bg-gradient-to-r from-blue-500/40 to-transparent" />
                   <p className="mt-5 text-sm font-medium text-slate-400">
-                    Positionnement produit, execution rapide, design orientee usage.
+                    Conception, integration LLM, deploiement production.
                   </p>
                 </motion.article>
               ))}
             </div>
           </section>
 
+          {/* COMPETENCES */}
           <section id="competences" className="scroll-mt-28">
             <SectionTitle
               eyebrow="Competences"
-              title="Un stack structure autour de l'IA, de la data et du produit."
-              description="Je combine vision, experimentation et implementation pour construire vite sans perdre la lisibilite du produit."
+              title="IA, pilotage de projet et transformation digitale."
+              description="Un profil structure autour de trois axes complementaires : maitrise technique de l'IA, gestion de projet Agile et accompagnement au changement."
             />
             <div className="mt-10 grid gap-6 lg:grid-cols-3">
               {Object.entries(skills).map(([category, items], index) => (
@@ -308,12 +327,13 @@ export default function Home() {
                   </h3>
                   <div className="mt-6 flex flex-wrap gap-3">
                     {items.map((skill) => (
-                      <span
+                      <motion.span
                         key={skill}
-                        className="rounded-full border border-blue-400/15 bg-blue-400/10 px-4 py-2 text-sm font-medium text-slate-100"
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        className="cursor-default rounded-full border border-blue-400/15 bg-blue-400/10 px-4 py-2 text-sm font-medium text-slate-100 transition-colors duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/20 hover:text-cyan-100"
                       >
                         {skill}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
                 </motion.div>
@@ -321,17 +341,19 @@ export default function Home() {
             </div>
           </section>
 
+          {/* CHAT IA */}
           <section id="chat-ia" className="scroll-mt-28">
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
               <SectionTitle
                 eyebrow="Chat IA"
-                title="Une interface conversationnelle pour presenter mon univers."
-                description="Le widget est branche sur la route API du portfolio et repond avec des suggestions rapides ou des questions libres."
+                title="Une IA qui me connait. Posez-lui vos questions."
+                description="Ce widget est branche sur OpenRouter et repond en temps reel a vos questions sur mon parcours, mes projets et ma motivation pour le DataLab Groupe Credit Agricole."
               />
               <ChatWidget />
             </div>
           </section>
 
+          {/* CONTACT */}
           <section id="contact" className="scroll-mt-28">
             <motion.div
               initial="hidden"
@@ -349,31 +371,32 @@ export default function Home() {
                   <h2
                     className={`${headingFont.className} text-3xl font-bold tracking-tight text-white md:text-4xl`}
                   >
-                    Ouvert aux discussions autour de l'IA, du produit et des SaaS.
+                    Interessé par mon profil pour le DataLab Groupe ?
                   </h2>
                   <p className="mt-4 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
-                    Pour une collaboration, un echange ou une opportunite, le plus
-                    simple est de me contacter directement.
+                    Je suis disponible pour un echange, une visio ou un entretien.
+                    N'hesitez pas a me contacter directement.
                   </p>
                 </div>
                 <div className="space-y-4">
                   <Link
-                    href="mailto:contact@h-hamdache.fr"
+                    href="mailto:hamza.hamd@icloud.com"
                     className="block rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-5 text-lg font-semibold text-white transition hover:border-cyan-300/30 hover:bg-white/[0.06]"
                   >
-                    contact@h-hamdache.fr
+                    hamza.hamd@icloud.com
                   </Link>
                   <Link
-                    href="https://www.linkedin.com/in/hamza-hamdache/"
+                    href="https://www.linkedin.com/in/hamzahamdache/"
                     target="_blank"
                     className="block rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-5 text-lg font-semibold text-white transition hover:border-cyan-300/30 hover:bg-white/[0.06]"
                   >
-                    linkedin.com/in/hamza-hamdache
+                    linkedin.com/in/hamzahamdache
                   </Link>
                 </div>
               </div>
             </motion.div>
           </section>
+
         </div>
       </div>
     </main>

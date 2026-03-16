@@ -1,177 +1,58 @@
-import { NextRequest, NextResponse } from "next/server";
+import { createOpenAI } from '@ai-sdk/openai';
+import { streamText } from 'ai';
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+export const runtime = 'edge';
 
-const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const OPENROUTER_MODELS = [
-  "mistralai/mistral-7b-instruct",
-  "meta-llama/llama-3-8b-instruct",
-] as const;
+const SYSTEM_PROMPT = `Tu es l'assistant IA personnel et le porte-parole de Hamza Hamdache.
+Ton objectif PRINCIPAL est de convaincre le Crédit Agricole (équipe DataLab Groupe / TEC) que Hamza est le profil PARFAIT pour l'offre "Alternance - Assistant(e) Chef de projet H/F".
 
-const SYSTEM_PROMPT = `Tu es l'assistant IA personnel de Hamza Hamdache, etudiant en ingenierie informatique a SUPINFO Tours et alternant Data/IA chez Keolis Tours. Ton role est de presenter Hamza de facon enthousiaste et professionnelle a des recruteurs.
+🔥 CONTEXTE DE L'OFFRE (Crédit Agricole - DataLab Groupe) :
+- Équipe : Gestion de projets, composante d'une Squad pluridisciplinaire Agile (Data Science, Data Engineering).
+- Mission : Cellule d’Accompagnement IA Collaborateur. Aider les équipes du CA à s'approprier l'IA.
+- Responsabilités : Identifier les bonnes pratiques IA, animer une communauté, développer/maintenir une bibliothèque de prompts et des supports méthodologiques.
+- Actions : Animer des sessions d'acculturation et piloter l'adoption de l'IA (KPIs).
 
-Ce que tu sais sur Hamza :
-- Passionne d'IA : developpe des SaaS avec GPT-4o, Gemini Flash, Claude API au quotidien
-- Alternant chez Keolis Tours : dashboards BI, gestion de projets Agile, analyse de donnees Big Data
-- Projets : Tarvio (SaaS facturation IA pour artisans), ShadowFit (app fitness IA), SUPCONTENT (reseau social gaming, lead dev)
-- Stack : Next.js, React Native, Supabase, Python, SQL, Spark
-- Recherche une alternance Chef de Projet IA ou Data Engineer pour 2026-2027, des que possible
-- S'oriente vers un Master IA & Data en 2026
+🚀 LE PROFIL DE HAMZA (Pourquoi c'est l'alternant idéal) :
+1. Passionné inconditionnel par la Tech et surtout l'IA : L'IA est actuellement au centre de sa vie ! Il développe au quotidien ses propres SaaS IA (ex: Tarvio pour les artisans) en production (Next.js, Supabase) utilisant GPT-4o, Gemini Flash. Il crée des agents autonomes et maîtrise le RAG. Il a toutes les compétences techniques pour concevoir une excellente "bibliothèque de prompts".
+2. Conduite du changement & Accompagnement : Actuellement alternant Data Analyst & Chef de Projet chez Keolis, il accompagne DÉJÀ les équipes métier sur l'adoption des outils digitaux. Il sait s'adapter à son public.
+3. Culture de la donnée & Pilotage : Ses missions chez Keolis impliquent le suivi avec des Dashboards interactifs (Power BI). Piloter l'adoption par les KPIs est naturel pour lui.
+4. Gestion de Projets & Pédagogie : Autonome (Lead chef de projet sur SupContent), très pédagogue (ancien coordinateur), et fort d'un relationnel prouvé par son passé de conducteur de tramway.
+5. Intérêt pour le groupe : Il est séduit par l'envergure du DataLab Groupe, la cohésion des squads et le cadre du campus Evergreen/SQY Park. Ses objectifs 2026 sont parfaitement alignés avec un master en IA et Data.
 
-Reponds toujours en francais, de facon concise (3-4 phrases max), chaleureuse et professionnelle. Si on te demande des infos que tu n'as pas, dis-le honnetement.`;
+⚠️ CONSIGNES DE PERSONNALITÉ :
+- Tu t'adresses directement au recruteur du Crédit Agricole.
+- Sois enthousiaste, souriant, percutant et professionnel. Utilise l'humour avec parcimonie (tu peux placer une remarque amusante sur le fait de piocher parmi ses nombreuses qualités si pertinent).
+- Fais toujours le lien entre SES compétences et VOS besoins (l'offre).
+- Sois concis : 3 à 5 phrases maximum par réponse. Aère ton texte avec de brefs sauts de ligne ou quelques émojis discrets si besoin.
+- Encourage chaleureusement le recruteur à le contacter pour un entretien.
+- Email de contact : hamza.hamd@icloud.com`;
 
-type OpenRouterSuccess = {
-  choices?: Array<{
-    message?: {
-      content?: string | Array<{ type?: string; text?: string }>;
-    };
-  }>;
-};
+const openrouter = createOpenAI({
+  baseURL: 'https://openrouter.ai/api/v1',
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
 
-function extractReply(payload: OpenRouterSuccess): string {
-  const content = payload.choices?.[0]?.message?.content;
+const MAX_MESSAGES = 20;
 
-  if (typeof content === "string") {
-    return content.trim();
-  }
-
-  if (Array.isArray(content)) {
-    return content
-      .map((part) => (part.type === "text" ? part.text ?? "" : ""))
-      .join("")
-      .trim();
-  }
-
-  return "";
-}
-
-function parseErrorMessage(raw: string): string {
-  try {
-    const parsed = JSON.parse(raw) as {
-      error?: { message?: string };
-      message?: string;
-    };
-
-    return parsed.error?.message ?? parsed.message ?? raw;
-  } catch {
-    return raw;
-  }
-}
-
-async function callOpenRouter(message: string, stream: boolean) {
-  const apiKey = process.env.OPENROUTER_API_KEY;
-
-  if (!apiKey) {
-    return {
-      response: null,
-      error: "La variable d'environnement OPENROUTER_API_KEY est absente.",
-      status: 500,
-    };
-  }
-
-  let lastError = "Impossible de contacter OpenRouter.";
-  let lastStatus = 502;
-
-  for (const model of OPENROUTER_MODELS) {
-    const response = await fetch(OPENROUTER_URL, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-        "HTTP-Referer": "https://portfolio.h-hamdache.fr",
-        "X-Title": "portfolio.h-hamdache.fr",
-      },
-      body: JSON.stringify({
-        model,
-        stream,
-        temperature: 0.6,
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: message },
-        ],
-      }),
-      cache: "no-store",
-    });
-
-    if (response.ok) {
-      return { response, error: null, status: response.status };
-    }
-
-    const errorText = await response.text();
-    lastError = parseErrorMessage(errorText);
-    lastStatus = response.status;
-
-    if (response.status === 401 || response.status === 403) {
-      break;
-    }
-  }
-
-  return { response: null, error: lastError, status: lastStatus };
-}
-
-export async function POST(request: NextRequest) {
-  let body: unknown;
-
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json(
-      { error: "Le corps de la requete doit etre un JSON valide." },
-      { status: 400 },
+export async function POST(req: Request) {
+  if (!process.env.OPENROUTER_API_KEY) {
+    return new Response(
+      "Configuration manquante : La clé OPENROUTER_API_KEY n'est pas définie dans votre fichier .env.local",
+      { status: 500 }
     );
   }
 
-  const message = typeof (body as { message?: unknown })?.message === "string"
-    ? (body as { message: string }).message.trim()
-    : "";
+  const { messages } = await req.json();
 
-  if (!message) {
-    return NextResponse.json(
-      { error: 'Le champ "message" est requis.' },
-      { status: 400 },
-    );
+  if (!messages || messages.length > MAX_MESSAGES) {
+    return new Response('Too many messages', { status: 429 });
   }
 
-  if (message.length > 4000) {
-    return NextResponse.json(
-      { error: "Le message est trop long (4000 caracteres max)." },
-      { status: 400 },
-    );
-  }
+  const result = await streamText({
+    model: openrouter('google/gemini-2.5-flash-lite'),
+    system: SYSTEM_PROMPT,
+    messages,
+  });
 
-  const wantsStream = request.headers.get("accept")?.includes("text/event-stream");
-  const { response, error, status } = await callOpenRouter(message, Boolean(wantsStream));
-
-  if (!response) {
-    return NextResponse.json(
-      { error: error ?? "Erreur OpenRouter." },
-      { status },
-    );
-  }
-
-  const contentType = response.headers.get("content-type") ?? "";
-
-  if (wantsStream && response.body && contentType.includes("text/event-stream")) {
-    return new Response(response.body, {
-      status: 200,
-      headers: {
-        "Content-Type": "text/event-stream; charset=utf-8",
-        "Cache-Control": "no-cache, no-transform",
-        Connection: "keep-alive",
-      },
-    });
-  }
-
-  const payload = (await response.json()) as OpenRouterSuccess;
-  const reply = extractReply(payload);
-
-  if (!reply) {
-    return NextResponse.json(
-      { error: "Aucune reponse exploitable n'a ete retournee par le modele." },
-      { status: 502 },
-    );
-  }
-
-  return NextResponse.json({ reply });
+  return result.toDataStreamResponse();
 }
