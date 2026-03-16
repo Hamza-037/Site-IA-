@@ -122,21 +122,21 @@ export default function Home() {
           initial={{ opacity: 0, y: -18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="sticky top-4 z-30 mb-10 rounded-full border border-white/10 bg-slate-950/70 px-5 py-4 shadow-glow backdrop-blur-xl"
+          className="sticky top-4 z-30 mb-6 md:mb-10 rounded-2xl md:rounded-full border border-white/10 bg-slate-950/70 px-5 py-4 shadow-glow backdrop-blur-xl"
         >
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-3">
-              <div className="h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_20px_rgba(74,231,255,0.9)]" />
+              <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-cyan-300 shadow-[0_0_20px_rgba(74,231,255,0.9)]" />
               <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-300">
                 h-hamdache.fr
               </p>
             </div>
-            <nav className="flex flex-wrap gap-3 text-sm text-slate-300">
+            <nav className="flex flex-wrap gap-2 md:gap-3 text-sm text-slate-300">
               {navItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="rounded-full px-3 py-1 transition hover:bg-white/5 hover:text-white"
+                  className="rounded-full px-3 py-1 transition hover:bg-white/5 hover:text-white text-xs md:text-sm"
                 >
                   {item.label}
                 </a>
@@ -158,37 +158,37 @@ export default function Home() {
                 DataLab Groupe Crédit Agricole S.A : Candidature Spontanée
               </span>
               <h1
-                className={`${headingFont.className} mt-8 text-5xl font-bold leading-none tracking-tight text-white sm:text-6xl md:text-7xl`}
+                className={`${headingFont.className} mt-8 text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight text-white`}
               >
                 Hamza Hamdache
               </h1>
-              <p className="mt-5 text-xl font-semibold text-green-400 md:text-2xl">
+              <p className="mt-5 text-lg md:text-2xl font-semibold text-green-400">
                 Alternant Chef de Projet IA — Cellule Accompagnement IA
               </p>
-              <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
+              <p className="mt-6 md:mt-8 max-w-2xl text-base md:text-xl leading-relaxed text-slate-300">
                 Passionne d'IA, je developpe des SaaS en production et pilote
                 des projets data en methode Agile. Je candidate pour contribuer
                 a l'adoption de l'IA au sein du Groupe Credit Agricole.
               </p>
-              <div className="mt-10 flex flex-wrap items-center gap-4">
+              <div className="mt-10 flex flex-col md:flex-row md:flex-wrap items-stretch md:items-center gap-4">
                 <a
                   href="#chat-ia"
-                  className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-300 px-7 py-4 text-sm font-semibold text-slate-950 transition duration-300 hover:scale-[1.02] hover:shadow-[0_12px_45px_rgba(74,231,255,0.24)]"
+                  className="group inline-flex justify-center items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-300 px-7 py-4 text-sm font-semibold text-slate-950 transition duration-300 hover:scale-[1.02] hover:shadow-[0_12px_45px_rgba(74,231,255,0.24)] w-full md:w-auto text-center"
                 >
-                  Parler a mon IA
+                  Parler à mon IA
                   <span className="transition group-hover:translate-x-1">→</span>
                 </a>
                 <a
                   href="/cv.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-7 py-4 text-sm font-semibold text-cyan-300 transition duration-300 hover:bg-cyan-400/20 hover:shadow-[0_0_15px_rgba(74,231,255,0.3)]"
+                  className="rounded-full flex justify-center border border-cyan-400/40 bg-cyan-400/10 px-7 py-4 text-sm font-semibold text-cyan-300 transition duration-300 hover:bg-cyan-400/20 hover:shadow-[0_0_15px_rgba(74,231,255,0.3)] w-full md:w-auto text-center"
                 >
-                  Telecharger mon CV
+                  Télécharger mon CV
                 </a>
                 <a
                   href="#projets"
-                  className="rounded-full border border-white/10 px-7 py-4 text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-white/5"
+                  className="rounded-full flex justify-center border border-white/10 px-7 py-4 text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-white/5 w-full md:w-auto text-center"
                 >
                   Voir mes projets
                 </a>

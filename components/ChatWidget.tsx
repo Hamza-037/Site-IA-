@@ -112,7 +112,7 @@ export default function ChatWidget() {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="w-full max-w-3xl mx-auto"
     >
-      <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/80 shadow-glow backdrop-blur-xl flex flex-col h-[600px]">
+      <div className="overflow-hidden rounded-2xl md:rounded-[2rem] border border-white/10 bg-slate-950/80 shadow-glow backdrop-blur-xl flex flex-col h-[75vh] min-h-[500px] max-h-[800px] md:h-[600px]">
         
         {/* Header minimaliste */}
         <div className="flex items-center justify-between border-b border-white/10 px-6 py-4 bg-white/[0.02]">
