@@ -154,16 +154,16 @@ export default function Home() {
               transition={{ duration: 0.7 }}
               className="max-w-3xl"
             >
-              <span className="inline-flex rounded-full border border-blue-400/20 bg-blue-500/10 px-4 py-1 text-sm font-medium text-blue-100">
-                Candidat Alternance Chef de Projet IA — DataLab Groupe • Credit Agricole SA
+              <span className="inline-flex rounded-full border border-green-500/20 bg-green-500/10 px-4 py-1 text-sm font-medium text-green-300">
+                DataLab Groupe Crédit Agricole S.A : Candidature Spontanée
               </span>
               <h1
                 className={`${headingFont.className} mt-8 text-5xl font-bold leading-none tracking-tight text-white sm:text-6xl md:text-7xl`}
               >
                 Hamza Hamdache
               </h1>
-              <p className="mt-5 text-xl font-semibold text-cyan-300 md:text-2xl">
-                Alternant Chef de Projet IA — Data & Transformation Digitale
+              <p className="mt-5 text-xl font-semibold text-green-400 md:text-2xl">
+                Alternant Chef de Projet IA — Cellule Accompagnement IA
               </p>
               <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
                 Passionne d'IA, je developpe des SaaS en production et pilote
@@ -205,7 +205,7 @@ export default function Home() {
               <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-glow backdrop-blur">
                 <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-400">
                   <span>Objectifs 2026</span>
-                  <span>DataLab</span>
+                  <span className="text-green-400 font-bold">Crédit Agricole</span>
                 </div>
                 <div className="mt-8 space-y-6">
                   {[
@@ -217,7 +217,7 @@ export default function Home() {
                       key={item}
                       className="rounded-2xl border border-white/8 bg-white/[0.03] p-5"
                     >
-                      <div className="mb-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-300" />
+                      <div className="mb-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-emerald-300" />
                       <p className="text-base leading-7 text-slate-200">{item}</p>
                     </div>
                   ))}
@@ -246,9 +246,9 @@ export default function Home() {
                 className="grid gap-4 md:grid-cols-3"
               >
                 {[
-                  { label: "Formation", value: "SUPINFO Tours — Master IA & Data 2026-2028" },
-                  { label: "Alternance", value: "Keolis Tours — Data & Chef de Projet" },
-                  { label: "Disponible", value: "Septembre 2026 — 24 mois" },
+                  { label: "Formation", value: "SUPINFO Tours — Ingénierie & Master IA" },
+                  { label: "Accompagnement", value: "Expertise en Pédagogie & Adoption IA" },
+                  { label: "Mobilité", value: "Campus Evergreen / SQY Park (Sept. 2026)" },
                 ].map((item) => (
                   <div
                     key={item.label}
