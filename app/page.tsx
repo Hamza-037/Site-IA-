@@ -23,16 +23,22 @@ const projects = [
       "Plateforme de devis et facturation assistee par IA pour artisans. Generation automatique par LLM, transcription vocale Whisper, paiement Stripe integre. Deployed en production sur Vercel.",
   },
   {
-    name: "ShadowFit",
-    category: "IA & Produit",
+    name: "StudyRAG-Assistant",
+    category: "LLM & RAG",
     description:
-      "Application mobile generant des objectifs hebdomadaires dynamiques via GPT-4o-mini. Coaching personnalise, suivi de progression et experience utilisateur pensee pour l'engagement.",
+      "Agent conversationnel personnel developpe pour interagir avec des documentations techniques complexes en temps reel. Division par 3 du temps de recherche d'information grace a l'architecture RAG.",
   },
   {
-    name: "SUPCONTENT",
-    category: "Chef de Projet",
+    name: "Auto-Prompt Optimizer",
+    category: "Prompt Engineering",
     description:
-      "Reseau social gaming full-stack pilote en lead chef de projet sur une equipe de 4. Coordination, architecture, livraisons. Node.js, React, React Native, PostgreSQL.",
+      "Outil Python testant et optimisant automatiquement les prompts envoyes a GPT-4o. Objectif de maximisation de la precision des reponses LLM et reduction des couts d'API de 40%.",
+  },
+  {
+    name: "Data-Pilot Dashboard",
+    category: "Data & BI",
+    description:
+      "Suite de tableaux de bord interactifs (PowerBI / DAX / Python) permettant de croiser de vastes quantites de donnees pour monitorer en temps reel des indicateurs cles et des KPIs d'adoption.",
   },
 ];
 
