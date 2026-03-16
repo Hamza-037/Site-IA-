@@ -149,6 +149,12 @@ export default function ChatWidget() {
                 </div>
                 <h3 className="text-xl font-semibold text-slate-200">Comment puis-je vous aider ?</h3>
                 <p className="text-sm text-slate-400">Posez une question ou choisissez une suggestion ci-dessous.</p>
+                <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/5 px-3 py-1.5 cursor-help" title="Tapez le mot 'Evergreen' dans le chat mystère !">
+                  <span className="text-sm">🤫</span>
+                  <p className="text-xs text-green-400/80 italic">
+                    Indice : L'IA a un petit secret concernant vos campus...
+                  </p>
+                </div>
               </div>
             </motion.div>
           )}
