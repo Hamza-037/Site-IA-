@@ -4,35 +4,134 @@
 
 :root {
   color-scheme: dark;
+  --c-bg: #030a14;
+  --c-surface: #070f1c;
+  --c-border: rgba(255, 255, 255, 0.07);
+  --c-cyan: #4ae7ff;
+  --c-blue: #2563ff;
+  --c-green: #34d399;
+  --c-text: #f0f6ff;
+  --c-muted: #8fa3bf;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at top, rgba(37, 99, 255, 0.22), transparent 28%),
-    radial-gradient(circle at 80% 10%, rgba(74, 231, 255, 0.12), transparent 20%),
-    linear-gradient(180deg, #040b16 0%, #07101d 45%, #040b16 100%);
-  color: #f7fbff;
-  text-rendering: optimizeLegibility;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(74, 231, 255, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 231, 255, 0.3);
 }
 
+body {
+  min-height: 100vh;
+  background: var(--c-bg);
+  color: var(--c-text);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle animated gradient background */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(circle at center, black 45%, transparent 90%);
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(37, 99, 255, 0.18), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 5%, rgba(74, 231, 255, 0.08), transparent),
+    radial-gradient(ellipse 50% 50% at 20% 90%, rgba(37, 99, 255, 0.06), transparent);
+}
+
+/* Dot grid pattern */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 70% 60% at center, black 30%, transparent 80%);
 }
 
 ::selection {
-  background: rgba(74, 231, 255, 0.3);
+  background: rgba(74, 231, 255, 0.25);
   color: #ffffff;
+}
+
+/* Glow utilities */
+.shadow-glow {
+  box-shadow:
+    0 0 0 1px rgba(74, 231, 255, 0.06),
+    0 8px 40px -8px rgba(37, 99, 255, 0.15);
+}
+
+.shadow-glow-lg {
+  box-shadow:
+    0 0 0 1px rgba(74, 231, 255, 0.08),
+    0 20px 80px -16px rgba(37, 99, 255, 0.25);
+}
+
+/* Animated gradient border */
+@keyframes border-rotate {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+/* Smooth section transitions */
+section {
+  position: relative;
+}
+
+/* Badge pulse animation */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(52, 211, 153, 0.6); }
+  50% { opacity: 0.7; box-shadow: 0 0 20px rgba(52, 211, 153, 0.9); }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Prose overrides for chat */
+.prose-chat {
+  --tw-prose-body: #c8d6e5;
+  --tw-prose-headings: #f0f6ff;
+  --tw-prose-code: #4ae7ff;
+}
+
+.prose-chat p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose-chat p:first-child {
+  margin-top: 0;
+}
+
+.prose-chat p:last-child {
+  margin-bottom: 0;
 }
